@@ -1,0 +1,36 @@
+{
+    "firstName": "Aya",
+    "lastName": "Guller",
+    "address": {
+        "city": "of mountaineers",
+        "street": "of the top ridges",
+        "block": 123
+    },
+    "order": {
+        "type": "book",
+        "pid": 102,
+        "ammount": 5,
+        "remark": "remove me",
+        "items": [
+            {
+                "type": "book",
+                "pid": 102,
+                "ammount": 5,
+                "remark": "remove me"
+            },
+            {
+                "type": "cooking ware",
+                "pid": 103,
+                "ammount": 15,
+                "remark": ""
+            }
+        ]
+    },
+    "array": [
+        1,
+        2,
+        3,
+        4,
+        5
+    ]
+}
