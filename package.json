@@ -1,0 +1,23 @@
+{
+  "name": "q2",
+  "version": "1.0.0",
+  "description": "Quick quoting engine for nodejs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Quote"
+  ],
+  "author": "Lu Huang",
+  "repository": "github:lhuang/quickquote",
+  "homepage": "https://github.com/lhuang/quickquote#readme",
+  "email": "lh8028@gmail.com",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "jest": "^24.9.0"
+  }
+}
