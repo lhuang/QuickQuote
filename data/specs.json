@@ -1,0 +1,30 @@
+{
+    "quote": {
+        "qNumber": "1234-3456-67890",
+        "customer": {
+            "firstName": "Lu",
+            "lastName": "Huang",
+            "address": {
+                "city": "Philadelphia",
+                "street": "17 Market Street",
+                "block": 123
+            },
+            "phones": [
+                "215-111-1111",
+                "610-111-0000"
+            ]
+        },
+        "items": [
+            {
+                "name": "IPhone 10",
+                "uniPrice": 999.99,
+                "quantity": 5
+            },
+            {
+                "name": "MacBook Pro 1'",
+                "uniPrice": 2999.99,
+                "quantity": 10
+            }
+        ]
+    }
+}

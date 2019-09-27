@@ -2,11 +2,12 @@
   "name": "q2",
   "version": "1.0.0",
   "description": "Quick quoting engine for nodejs",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
     "test": "jest",
-    "start": "babel-node src/index.js",
-    "debug": "babel-node debug index.js"
+    "build": "babel src --out-dir build --presets=@babel/preset-env",
+    "test-coverage": "jest --coverage",
+    "start": "babel-node src/main.js --presets=env"
   },
   "keywords": [
     "Quote"
@@ -17,9 +18,14 @@
   "email": "lh8028@gmail.com",
   "license": "ISC",
   "devDependencies": {
+    "@babel/cli": "^7.6.2",
+    "@babel/core": "^7.6.2",
+    "@babel/preset-env": "^7.6.2",
     "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^24.9.0",
     "babel-preset-env": "^1.7.0",
     "jest": "^24.9.0"
-  }
+  },
+  "dependencies": {}
 }
