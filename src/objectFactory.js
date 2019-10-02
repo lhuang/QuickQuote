@@ -1,20 +1,20 @@
 
-function objectFactory() {
+const objectF = function () {
     /**
     * 
     */
     const Type = {
-        QUOTE: "quote",
-        ADDRESS: "address",
-        ACCOUNT: "account",
-        CONTACT: "contact",
-        ITEM: "item",
-        DISCOUNT: "discount"
+        Quote: "quote",
+        Address: "address",
+        Account: "account",
+        Contact: "contact",
+        Item: "item",
+        Discount: "discount"
     };
     const _quote = {
-        qnumber: "",
+        qnumber: "12345678",
         id: 10,
-        customer: {},
+        customer: null,
         items: [],
         isValid() {
             let ans = this.qnumber && this.customer;
@@ -26,67 +26,66 @@ function objectFactory() {
         }
     };
     const _address = {
-        street: "",
+        street: "1714",
         city: "",
         state: "",
         zip: "",
         country: "",
         isValid() {
-            return street &&
-                city &&
-                state &&
-                zip;
+            return this.street &&
+                this.city &&
+                this.state &&
+                this.zip;
         }
     };
     const _account = {
-        company: "",
-        address: {},
-        primaryContact: {},
+        company: "my account",
+        address: null,
+        primaryContact: null,
         isValid() {
-            return company &&
-                address &&
-                address.isValid() &&
-                primaryContact &&
-                primaryContact.isValid();
+            return this.company &&
+                this.address &&
+                //this.address.isValid() &&
+                this.primaryContact;
+            //this.primaryContact.isValid();
         }
     };
     const _contact = {
-        name: "",
+        name: "my contact",
         email: "",
         phone: "",
-        address: {},
+        address: null,
         isValid() {
-            return name &&
-                email &&
-                address &&
-                address.isValid();
+            return this.name &&
+                this.email &&
+                this.address;// &&
+            //this.address.isValid();
         }
     };
     const _item = {
-        container: "",
-        name: "",
+        parent: "",
+        name: "my item",
         description: "",
         price: 0.00,
         quantity: 0,
         discount: "",
-        items: [],
+        children: [],
         isValid() {
-            let ans = name;
-            for (let item of items) {
-                ans = ans && item && item.isValid();
+            let ans = this.name;
+            for (let child of this.children) {
+                //ans = ans && child.isValid();
             }
 
             return ans;
         },
         calc() {
-            let amt = quantity * price;
-            if (discount && discount.approved) {
-                amt -= discount.calc(amt);
+            let amt = this.quantity * this.price;
+            if (this.discount && this.discount.approved) {
+                amt -= this.discount.calc(amt);
             }
             return amt;
         },
     };
-
     const _discount = {
         method: "amount",
         value: 0.00,
@@ -105,26 +104,26 @@ function objectFactory() {
     const _create = name => {
         let ans = {};
         switch (name) {
-            case Type.ADDRESS:
+            case Type.Address:
                 Object.assign(ans, _address);
                 break;
-            case Type.ACCOUNT:
+            case Type.Account:
                 let c = {};
                 Object.assign(ans, _account);
-                Object.assign(ans.address, _create(Type.ADDRESS));
-                Object.assign(ans.primaryContact, _create(Type.CONTACT));
+                ans.address = _create(Type.address);
+                ans.primaryContact = _create(Type.Contact);
                 break;
-            case Type.CONTACT:
+            case Type.Contact:
                 Object.assign(ans, _contact);
-                Object.assign(ans.address, _create(Type.ADDRESS));
+                ans.address = _create(Type.Address);
                 break;
-            case Type.ITEM:
+            case Type.Item:
                 Object.assign(ans, _item);
                 break;
-            case Type.DISCOUNT:
+            case Type.Discount:
                 Object.assign(ans, _discount);
                 break;
-            case Type.QUOTE:
+            case Type.Quote:
                 Object.assign(ans, _quote);
                 break;
             default:
@@ -135,10 +134,10 @@ function objectFactory() {
         return ans;
     };
     return {
-        create: (name) => {
-            return _create(name);
+        create: (name = null) => {
+            return _create(name || "quote");
         }
     };
-}
+}();
 
-module.exports = objectFactory;
+module.exports = objectF;
