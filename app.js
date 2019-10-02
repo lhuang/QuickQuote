@@ -13,6 +13,9 @@ quote.id = 20;
 
 quote.items = [];
 quote.items.push({
+    x: {
+        y: {}
+    }
 });
 quote.items[0].name = "Huawei mate 30";
 quote.items[0].price = 999.99;

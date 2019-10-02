@@ -6,21 +6,27 @@ describe("object creation: ", () => {
         expect(quote.qnumber).toBe("12345678");
         const item = objectF.create("item");
         quote.items.push(item);
-        quote.isValid();
-        //expect(quote.isValid()).toBe(false);
+        quote.customer = objectF.create("account");
+        expect(quote.isValid()).toBe(false);
     });
     it("address", () => {
         const address = objectF.create("address");
         expect(address.street).toBe("1714");
-        address.isValid();
-        //expect(address.isValid()).toBe(false);
+        address.city = "phildalephia";
+        address.state = "PA";
+        address.zip = "19403";
+        expect(address.isValid()).toBe(true);
     });
     it("contact", () => {
         const contact = objectF.create("contact");
         expect(contact.name).toBe("my contact");
         expect(contact.address.street).toBe("1714");
-        contact.isValid();
-        //expect(contact.isValid()).toBe(false);
+        contact.email = "lh8028@gmail.com";
+        contact.phone = "215-111-1111";
+        contact.address.city = "phildalephia";
+        contact.address.state = "PA";
+        contact.address.zip = "19403";
+        expect(contact.isValid()).toBe(true);
     });
     it("account", () => {
         const account = objectF.create("account");

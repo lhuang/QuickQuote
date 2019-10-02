@@ -23,8 +23,8 @@ describe("Tests of a dynamic proxy:", () => {
     });
     it("add an array element by push", () => {
         obj.items.push({});
-        expect(changes[2].path).toBe(".items");
-        //expect(JSON.stringify(changes[2].value[0].newValue)).toBe("{}");
+        expect(JSON.stringify(changes[2].value[0])).toBe("{}");
+
     });
     it("create & set property of newly added array element", () => {
         obj.items[0].name = "Huawei mate 30";
@@ -56,6 +56,14 @@ describe("Tests of a dynamic proxy:", () => {
         obj.items.unshift({});
         obj.items.splice(0, 1);
         expect(changes[9].value.length).toBe(1);
+    });
+    it("add an array element by push", () => {
+        obj.items.push("hello");
+        expect(changes[10].value[0]).toBe("hello");
+    });
+    it("add an array element by push", () => {
+        obj.items.unshift("world");
+        expect(changes[11].value[0]).toBe("world");
     });
     it("unwatching an object returning the original object, isProxy = false?", () => {
         obj = obj.unwatch();

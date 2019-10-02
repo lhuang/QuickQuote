@@ -27,12 +27,12 @@ const objectF = function () {
     };
     const _address = {
         street: "1714",
-        city: "",
-        state: "",
-        zip: "",
-        country: "",
+        city: null,
+        state: null,
+        zip: null,
+        country: null,
         isValid: function () {
-            return this.street && this.city && this.state && this.zip;
+            return Boolean(this.street && this.city && this.state && this.zip);
         }
     };
     const _account = {
@@ -40,16 +40,16 @@ const objectF = function () {
         address: null,
         primaryContact: null,
         isValid: function () {
-            return this.company && this.address && this.primaryContact;
+            return this.company && this.address && this.primaryContact.isValid();
         }
     };
     const _contact = {
         name: "my contact",
-        email: "",
-        phone: "",
+        email: null,
+        phone: null,
         address: null,
         isValid: function () {
-            return this.name && this.email && this.address;
+            return this.name && this.email && this.address.isValid();
         }
     };
     const _item = {

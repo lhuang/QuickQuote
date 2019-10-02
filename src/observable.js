@@ -21,6 +21,8 @@ function observable(target) {
         Edit: "edit"
     };
 
+    const _path = (p) => { return p !== null ? p : ""; };
+
     /**
      * 
      * @param {*} target 
@@ -40,7 +42,7 @@ function observable(target) {
                 notify(message);
                 for (let arg of [...arguments]) {
                     if (arg instanceof Object) {
-                        obj[last] = _watch(arg, `${path}.${last}`);
+                        obj[last] = _watch(arg, `${_path(path)}.${last}`);
                         last++;
                     }
                 }
@@ -76,7 +78,7 @@ function observable(target) {
                 notify(message);
                 for (let arg of [...arguments]) {
                     if (arg instanceof Object) {
-                        obj[last] = _watch(arg, `${path}.${last}`);
+                        obj[last] = _watch(arg, `${_path(path)}.${last}`);
                         last++;
                     }
                 }
@@ -107,7 +109,7 @@ function observable(target) {
                     return true;
 
                 if (Array.isArray(target)) {
-                    let proxies = _proxies(target, path);
+                    let proxies = _proxies(target, _path(path));
                     if (prop in proxies) {
                         return proxies[prop];
                     }
@@ -123,14 +125,14 @@ function observable(target) {
                 if (oldValue !== newValue) {
                     message = {
                         action: Action.Edit,
-                        path: `${path}.${prop}`,
+                        path: `${_path(path)}.${prop}`,
                         value: [{ oldValue, newValue }]
                     };
                     notify(message);
                 }
 
                 if (value instanceof Object) {
-                    value = _watch(value, `${path}.${prop}`);
+                    value = _watch(value, `${_path(path)}.${prop}`);
                 }
 
                 target[prop] = value;
@@ -141,7 +143,7 @@ function observable(target) {
 
                 let message = {
                     event: Action.Remove,
-                    path: `${path}.${prop}`,
+                    path: `${_path(path)}.${prop}`,
                     value: null
                 };
                 // call all handlers
@@ -151,7 +153,7 @@ function observable(target) {
         };
         for (let prop in obj) {
             if (obj[prop] instanceof Object) {
-                obj[prop] = _watch(obj[prop], `${(path != null) ? path + '.' : ''}${prop}`);
+                obj[prop] = _watch(obj[prop], `${_path(path)}.${prop}`);
             }
         }
         return new Proxy(obj, handler);
@@ -168,7 +170,7 @@ function observable(target) {
         return o;
     };
 
-    return _watch(target, "");
+    return _watch(target, null);
 }
 
 module.exports = observable;
