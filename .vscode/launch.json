@@ -1,6 +1,7 @@
 {
 	"version": "0.2.0",
-	"configurations": [{
+	"configurations": [
+		{
 			"type": "node",
 			"request": "attach",
 			"name": "Attach",
@@ -12,9 +13,12 @@
 			"request": "launch",
 			"protocol": "inspector",
 			"name": "ES6 Debugger",
-			"program": "${workspaceFolder}/src/main.js",
+			"program": "${workspaceFolder}/app.js",
 			"runtimeExecutable": "${workspaceRoot}/node_modules/.bin/babel-node",
-			"runtimeArgs": ["--presets", "env"],
+			"runtimeArgs": [
+				"--presets",
+				"env"
+			],
 			"console": "integratedTerminal"
 		}
 	]

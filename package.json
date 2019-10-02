@@ -4,10 +4,11 @@
   "description": "Quick quoting engine for nodejs",
   "main": "main.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --verbose",
     "build": "babel src --out-dir build --presets=@babel/preset-env",
-    "test-coverage": "jest --coverage",
-    "start": "babel-node src/main.js --presets=env"
+    "test-coverage": "jest --coverage --verbose",
+    "start": "babel-node src/app.js --presets=env",
+    "clear-test": "jest --clearCache"
   },
   "keywords": [
     "Quote"

@@ -34,7 +34,7 @@
             },
             {
                 "name": "MacBook Pro",
-                "uniPrice": 2999.99,
+                "price": 2999.99,
                 "quantity": 10,
                 "items": [
                     {
