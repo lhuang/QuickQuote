@@ -34,18 +34,22 @@ describe("object creation: ", () => {
         expect(discount.method).toBe("amount");
         discount.isValid();
         //expect(discount.isValid()).toBe(false);
-        discount.calc(100);
-        //expect(discount.calc(100)).toBe(100);
+        expect(discount.calc(100)).toBe(100);
+        discount.method = "percent";
+        discount.value = 0.5;
+        expect(discount.calc(100)).toBe(50);
     });
     it("item", () => {
         const item = objectF.create("item");
         expect(item.name).toBe("my item");
+        item.price = 100.00;
         item.discount = objectF.create("discount");
         let child = objectF.create("item");
         item.children.push(child);
         item.isValid();
-        //expect(item.isValid()).toBe(false);
-        item.calc(100);
-        //expect(item.calc()).toBe(0);
+        item.discount.value = 50.00;
+        expect(item.calc()).toBe(50);
+        item.discount.approved = false;
+        expect(item.calc()).toBe(100);
     });
 });

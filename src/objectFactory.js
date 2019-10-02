@@ -1,4 +1,4 @@
-
+const clone = require('lodash/clonedeep');
 const objectF = function () {
     /**
     * 
@@ -16,10 +16,10 @@ const objectF = function () {
         id: 10,
         customer: null,
         items: [],
-        isValid() {
+        isValid: function () {
             let ans = this.qnumber && this.customer;
             for (let item of this.items) {
-                ans = ans && item && item.isValid();
+                ans = ans && item.isValid();
             }
 
             return ans;
@@ -31,23 +31,16 @@ const objectF = function () {
         state: "",
         zip: "",
         country: "",
-        isValid() {
-            return this.street &&
-                this.city &&
-                this.state &&
-                this.zip;
+        isValid: function () {
+            return this.street && this.city && this.state && this.zip;
         }
     };
     const _account = {
         company: "my account",
         address: null,
         primaryContact: null,
-        isValid() {
-            return this.company &&
-                this.address &&
-                //this.address.isValid() &&
-                this.primaryContact;
-            //this.primaryContact.isValid();
+        isValid: function () {
+            return this.company && this.address && this.primaryContact;
         }
     };
     const _contact = {
@@ -55,11 +48,8 @@ const objectF = function () {
         email: "",
         phone: "",
         address: null,
-        isValid() {
-            return this.name &&
-                this.email &&
-                this.address;// &&
-            //this.address.isValid();
+        isValid: function () {
+            return this.name && this.email && this.address;
         }
     };
     const _item = {
@@ -67,18 +57,18 @@ const objectF = function () {
         name: "my item",
         description: "",
         price: 0.00,
-        quantity: 0,
+        quantity: 1,
         discount: "",
         children: [],
-        isValid() {
+        isValid: function () {
             let ans = this.name;
             for (let child of this.children) {
-                //ans = ans && child.isValid();
+                child.isValid();
             }
 
-            return ans;
+            return false;
         },
-        calc() {
+        calc: function () {
             let amt = this.quantity * this.price;
             if (this.discount && this.discount.approved) {
                 amt -= this.discount.calc(amt);
@@ -90,14 +80,12 @@ const objectF = function () {
         method: "amount",
         value: 0.00,
         approved: true,
-        isValid() {
+        isValid: function () {
             return this.method === "percent" ||
                 this.method === "amount";
         },
-        calc(amt) {
-            return this.method === "amount" ?
-                amt - this.value :
-                amt * (1 - this.value);
+        calc: function (amt) {
+            return this.method === "amount" ? amt - this.value : amt * (1 - this.value);
         },
     };
 
@@ -105,26 +93,25 @@ const objectF = function () {
         let ans = {};
         switch (name) {
             case Type.Address:
-                Object.assign(ans, _address);
+                ans = clone(_address);
                 break;
             case Type.Account:
-                let c = {};
-                Object.assign(ans, _account);
+                ans = clone(_account);
                 ans.address = _create(Type.address);
                 ans.primaryContact = _create(Type.Contact);
                 break;
             case Type.Contact:
-                Object.assign(ans, _contact);
+                ans = clone(_contact);
                 ans.address = _create(Type.Address);
                 break;
             case Type.Item:
-                Object.assign(ans, _item);
+                ans = clone(_item);
                 break;
             case Type.Discount:
-                Object.assign(ans, _discount);
+                ans = clone(_discount);
                 break;
             case Type.Quote:
-                Object.assign(ans, _quote);
+                ans = clone(_quote);
                 break;
             default:
 
