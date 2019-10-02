@@ -21,7 +21,7 @@ describe("Tests of a dynamic proxy:", () => {
         expect(changes[1].value[0].oldValue).toBe(undefined);
         expect(JSON.stringify(changes[1].value[0].newValue)).toBe("[]");
     });
-    it("add an array element by push", () => {
+    it("add an object type element by push", () => {
         obj.items.push({});
         expect(JSON.stringify(changes[2].value[0])).toBe("{}");
 
@@ -31,7 +31,7 @@ describe("Tests of a dynamic proxy:", () => {
         expect(changes[3].path).toBe(".items.0.name");
         expect(changes[3].value[0].newValue).toBe("Huawei mate 30");
     });
-    it("add an element by unshift", () => {
+    it("add an object type element by unshift", () => {
         obj.items.unshift({ name: "IPhone 11" });
         expect(changes[4].path).toBe(".items");
         expect(changes[4].value[0].name).toBe("IPhone 11");
@@ -48,7 +48,7 @@ describe("Tests of a dynamic proxy:", () => {
         obj.id = 20;
         //expect(changes[7].path).toBe(".id");
     });
-    it("delete property", () => {
+    it("delete object's property", () => {
         delete obj.id;
         expect(changes[7].path).toBe(".id");
     });
@@ -57,11 +57,11 @@ describe("Tests of a dynamic proxy:", () => {
         obj.items.splice(0, 1);
         expect(changes[9].value.length).toBe(1);
     });
-    it("add an array element by push", () => {
+    it("add a string type element by push", () => {
         obj.items.push("hello");
         expect(changes[10].value[0]).toBe("hello");
     });
-    it("add an array element by push", () => {
+    it("add a string type element by unshift", () => {
         obj.items.unshift("world");
         expect(changes[11].value[0]).toBe("world");
     });
