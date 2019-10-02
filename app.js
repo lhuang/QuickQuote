@@ -13,8 +13,8 @@ quote.id = 20;
 
 quote.items = [];
 quote.items.push({
-    name: "Huawei mate 30"
 });
+quote.items[0].name = "Huawei mate 30";
 quote.items[0].price = 999.99;
 quote.items[0].quantity = 10;
 
@@ -36,6 +36,7 @@ quote.items.unshift({
 
 quote.items[3].quantity = 50;
 
+/*
 const factory = require("./src/objectFactory");
 
 const fn = factory();
@@ -103,3 +104,4 @@ _quote.items[0].items.push({
     quantity: 354
 });
 _quote.items[0].items[0].price = 29.99;
+*/

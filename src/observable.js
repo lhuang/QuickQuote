@@ -6,7 +6,7 @@ function observable(target) {
         this[listeners].push(listener);
     };
     target.unwatch = function () {
-        _unwatch(target);
+        return _unwatch(target);
     };
     const notify = function (msg) {
         target[listeners].forEach(listener => listener(msg));
@@ -120,14 +120,14 @@ function observable(target) {
                 target[prop] = value;
                 let message = null;
 
-                if (oldValue !== newValue)
+                if (oldValue !== newValue) {
                     message = {
                         action: Action.Edit,
                         path: `${path}.${prop}`,
                         value: [{ oldValue, newValue }]
                     };
-                //
-                notify(message);
+                    notify(message);
+                }
 
                 if (value instanceof Object) {
                     value = _watch(value, `${path}.${prop}`);
@@ -140,7 +140,7 @@ function observable(target) {
                 delete target[prop];
 
                 let message = {
-                    event: Observe.Remove,
+                    event: Action.Remove,
                     path: `${path}.${prop}`,
                     value: null
                 };
