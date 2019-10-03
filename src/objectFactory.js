@@ -13,7 +13,7 @@ const objectF = function () {
     };
     const _quote = {
         qnumber: null,
-        id: null,
+        timestamp: null,
         customer: null,
         items: [],
         isValid: function () {
@@ -109,6 +109,8 @@ const objectF = function () {
         },
     };
     const _discount = {
+        name: null,
+        group: null,
         method: "amount",
         value: 0.00,
         approved: true,
@@ -126,7 +128,6 @@ const objectF = function () {
             return this.method === "amount" ? amt - this.value : amt * (1 - this.value);
         },
     };
-
     const _create = name => {
         let ans = {};
         switch (name) {

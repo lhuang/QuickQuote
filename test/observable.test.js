@@ -38,7 +38,7 @@ describe("Tests of a dynamic proxy:", () => {
     });
     it("remove an element by pop", () => {
         obj.items.pop();
-        expect(changes[5].value[0].name).toBe("IPhone 11");
+        expect(changes[5].value[0].name).toBe("Huawei mate 30");
     });
     it("remove an element by shift", () => {
         obj.items.shift();

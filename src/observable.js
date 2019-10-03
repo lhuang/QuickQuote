@@ -2,16 +2,25 @@
 function observable(target) {
     let listeners = Symbol('listeners');
     target[listeners] = [];
+    /**
+     * 
+     */
     target.watch = function (listener) {
         this[listeners].push(listener);
     };
+    /**
+     * 
+     */
     target.unwatch = function () {
         return _unwatch(target);
     };
+    /**
+     * 
+     * @param {*} msg 
+     */
     const notify = function (msg) {
         target[listeners].forEach(listener => listener(msg));
     };
-
     /**
      * 
      */
@@ -20,8 +29,15 @@ function observable(target) {
         Add: "add",
         Edit: "edit"
     };
-
+    /**
+     * 
+     * @param {*} p 
+     */
     const _path = (p) => { return p !== null ? p : ""; };
+    /**
+     * 
+     * @param {*} value 
+     */
     const _type = (value) => {
         return Array.isArray(value) ?
             "array" :
@@ -77,7 +93,6 @@ function observable(target) {
                 notify(message);
             },
             unshift: function () {
-                let last = obj.length;
                 Array.prototype.unshift.apply(obj, arguments);
                 let message = {
                     action: Action.Add,
@@ -86,10 +101,12 @@ function observable(target) {
                     type: "array"
                 };
                 notify(message);
-                for (let arg of [...arguments]) {
+                let args = [...arguments];
+                let last = args.length - 1;
+                for (let arg of args) {
                     if (arg instanceof Object) {
                         obj[last] = _watch(arg, `${_path(path)}.${last}`);
-                        last++;
+                        last--;
                     }
                 }
             },
@@ -106,7 +123,6 @@ function observable(target) {
             }
         };
     };
-
     /**
      * 
      * @param {*} obj 
@@ -173,6 +189,10 @@ function observable(target) {
         }
         return new Proxy(obj, handler);
     };
+    /**
+     * 
+     * @param {*} obj 
+     */
     const _unwatch = (obj) => {
         let o = {};
         for (let key in obj) {
