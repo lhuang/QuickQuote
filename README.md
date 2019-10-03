@@ -1,1 +1,1 @@
-# QuickQuote (Q<sup>2</sup>)["@babel/preset-env"]
+# Quick Quote (Q<sup>2</sup>)
