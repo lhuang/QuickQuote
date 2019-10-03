@@ -22,7 +22,13 @@ function observable(target) {
     };
 
     const _path = (p) => { return p !== null ? p : ""; };
-
+    const _type = (value) => {
+        return Array.isArray(value) ?
+            "array" :
+            ((value instanceof Date) ?
+                "date" :
+                typeof value);
+    };
     /**
      * 
      * @param {*} target 
@@ -37,7 +43,8 @@ function observable(target) {
                 let message = {
                     action: Action.Add,
                     path,
-                    value: [...arguments]
+                    value: [...arguments],
+                    type: "array"
                 };
                 notify(message);
                 for (let arg of [...arguments]) {
@@ -53,7 +60,8 @@ function observable(target) {
                 let message = {
                     action: Action.Remove,
                     path,
-                    value: removed
+                    value: removed,
+                    type: "array"
                 };
                 notify(message);
             },
@@ -63,7 +71,8 @@ function observable(target) {
                 let message = {
                     action: Action.Remove,
                     path,
-                    value: removed
+                    value: removed,
+                    type: "array"
                 };
                 notify(message);
             },
@@ -73,7 +82,8 @@ function observable(target) {
                 let message = {
                     action: Action.Add,
                     path,
-                    value: [...arguments]
+                    value: [...arguments],
+                    type: "array"
                 };
                 notify(message);
                 for (let arg of [...arguments]) {
@@ -89,7 +99,8 @@ function observable(target) {
                 let message = {
                     action: Action.Remove,
                     path,
-                    value: removed
+                    value: removed,
+                    type: "array"
                 };
                 notify(message);
             }
@@ -118,6 +129,7 @@ function observable(target) {
                 return target[prop];
             },
             set: (target, prop, value) => {
+                let type = _type(value);
                 let oldValue = target[prop], newValue = value;
                 target[prop] = value;
                 let message = null;
@@ -126,7 +138,8 @@ function observable(target) {
                     message = {
                         action: Action.Edit,
                         path: `${_path(path)}.${prop}`,
-                        value: [{ oldValue, newValue }]
+                        value: [{ oldValue, newValue }],
+                        type
                     };
                     notify(message);
                 }
@@ -139,12 +152,14 @@ function observable(target) {
                 return true;
             },
             deleteProperty: (target, prop) => {
+                let type = _type(target[prop]);
                 delete target[prop];
 
                 let message = {
                     event: Action.Remove,
                     path: `${_path(path)}.${prop}`,
-                    value: null
+                    value: null,
+                    type
                 };
                 // call all handlers
                 notify(message);

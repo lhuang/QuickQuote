@@ -65,6 +65,10 @@ describe("Tests of a dynamic proxy:", () => {
         obj.items.unshift("world");
         expect(changes[11].value[0]).toBe("world");
     });
+    it("create & set property of date type to new Date()", () => {
+        obj.timestamp = new Date();
+        expect(changes[12].type).toBe("date");
+    });
     it("unwatching an object returning the original object, isProxy = false?", () => {
         obj = obj.unwatch();
         expect(obj.isProxy ? true : false).toBe(false);

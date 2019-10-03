@@ -12,67 +12,99 @@ const objectF = function () {
         Discount: "discount"
     };
     const _quote = {
-        qnumber: "12345678",
-        id: 10,
+        qnumber: null,
+        id: null,
         customer: null,
         items: [],
         isValid: function () {
-            let ans = this.qnumber && this.customer;
+            let ans = (this.qnumber ? true : false);
+            ans = ans && (this.customer ? true : false);
+            ans = ans && this.customer.isValid();
+            //
             for (let item of this.items) {
                 ans = ans && item.isValid();
             }
 
             return ans;
+        },
+        calc: function () {
+            let amt = 0;
+            for (let child of this.items) {
+                amt += child.calc();
+            }
+            return amt;
         }
     };
     const _address = {
-        street: "1714",
+        street: null,
         city: null,
         state: null,
         zip: null,
         country: null,
         isValid: function () {
-            return Boolean(this.street && this.city && this.state && this.zip);
+            let ans = this.street ? true : false;
+            ans = ans && (this.city ? true : false);
+            ans = ans && (this.state ? true : false);
+            ans = ans && (this.zip ? true : false);
+            return ans;
         }
     };
     const _account = {
-        company: "my account",
+        company: null,
         address: null,
         primaryContact: null,
         isValid: function () {
-            return this.company && this.address && this.primaryContact.isValid();
+            let ans = this.company ? true : false;
+            ans = ans && (this.address ? true : false);
+            ans = ans && this.address.isValid();
+            ans = ans && (this.primaryContact ? true : false);
+            ans = ans && this.primaryContact.isValid();
+            return ans;
         }
     };
     const _contact = {
-        name: "my contact",
+        name: null,
         email: null,
         phone: null,
         address: null,
         isValid: function () {
-            return this.name && this.email && this.address.isValid();
+            return (this.name ? true : false) &&
+                (this.email ? true : false) &&
+                (this.address ? true : false) &&
+                this.address.isValid();
         }
     };
     const _item = {
-        parent: "",
-        name: "my item",
-        description: "",
+        parent: null,
+        name: null,
+        description: null,
         price: 0.00,
-        quantity: 1,
-        discount: "",
+        quantity: 0,
+        discount: null,
         children: [],
         isValid: function () {
-            let ans = this.name;
-            for (let child of this.children) {
-                child.isValid();
-            }
+            let ans = (this.name ? true : false);
+            ans = ans && this.price >= 0;
+            ans = ans && (typeof (this.price) === "number");
+            ans = ans && (this.quantity >= 0);
+            ans = ans && (typeof (this.quantity) === "number");
 
-            return false;
+            for (let child of this.children) {
+                ans = ans && child.isValid();
+            }
+            return ans;
         },
         calc: function () {
             let amt = this.quantity * this.price;
-            if (this.discount && this.discount.approved) {
-                amt -= this.discount.calc(amt);
+
+            for (let child of this.children) {
+                amt += child.calc();
             }
+
+            if (this.discount && this.discount.approved) {
+                amt = this.discount.calc(amt);
+            }
+
             return amt;
         },
     };
@@ -81,8 +113,14 @@ const objectF = function () {
         value: 0.00,
         approved: true,
         isValid: function () {
-            return this.method === "percent" ||
-                this.method === "amount";
+            let ans1 = this.method === "amount";
+            ans1 = ans1 && this.value >= 0;
+            let ans2 = this.method === "percent";
+            ans2 = ans2 && this.value < 1;
+            let ans = ans1 || ans2;
+            ans = ans && (typeof (this.value) === "number");
+            ans = ans && (typeof (this.approved) === "boolean");
+            return ans;
         },
         calc: function (amt) {
             return this.method === "amount" ? amt - this.value : amt * (1 - this.value);
@@ -97,7 +135,7 @@ const objectF = function () {
                 break;
             case Type.Account:
                 ans = clone(_account);
-                ans.address = _create(Type.address);
+                ans.address = _create(Type.Address);
                 ans.primaryContact = _create(Type.Contact);
                 break;
             case Type.Contact:
@@ -114,12 +152,13 @@ const objectF = function () {
                 ans = clone(_quote);
                 break;
             default:
-
+                ans = { isEmpty: true };
                 break;
         }
 
         return ans;
     };
+
     return {
         create: (name = null) => {
             return _create(name || "quote");

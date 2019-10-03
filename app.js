@@ -5,18 +5,32 @@ quote = observable(quote);
 //
 
 quote.watch(msg => {
-    console.dir(msg, { depth: null, colors: true });
+    //console.dir(msg, { depth: null, colors: true });
 });
+quote.watch(evt => {
+    switch (evt.action) {
+        case "edit":
+            if (evt.type !== "object" && evt.type !== "array") {
+                console.dir(evt, { depth: null, colors: true });
+            }
+            break;
+        case "add":
 
-//_quote.qnumber = "123546778";
-quote.id = 20;
+            break;
+        case "remove":
 
-quote.items = [];
-quote.items.push({
-    x: {
-        y: {}
+            break;
     }
 });
+
+quote.qnumber = "123546778";
+quote.id = 20;
+quote.timestamp = new Date();
+quote.customer = {};
+quote.customer = null;
+
+quote.items = [];
+quote.items.push({});
 quote.items[0].name = "Huawei mate 30";
 quote.items[0].price = 999.99;
 quote.items[0].quantity = 10;
@@ -38,9 +52,3 @@ quote.items.unshift({
 });
 
 quote.items[3].quantity = 50;
-
-const objectF = require("./src/objectFactory");
-
-const account = objectF.create("account");
-
-console.dir(account, { depth: null, colors: true });
