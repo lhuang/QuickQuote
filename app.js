@@ -71,11 +71,11 @@ obj.items[3].items.push({
     price: 19.99,
     quantity: 100
 });
+
 console.dir(obj.items, { depth: null, colors: true });
 obj.items.shift();
 console.dir(obj.items, { depth: null, colors: true });
 obj.items.pop();
 console.dir(obj.items, { depth: null, colors: true });
-
 obj.items.shift();
 console.dir(obj.items, { depth: null, colors: true });
