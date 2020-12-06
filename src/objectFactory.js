@@ -1,4 +1,4 @@
-const clone = require('lodash/clonedeep');
+import clone from 'lodash/cloneDeep';
 const objectF = function () {
     /**
     * 
@@ -167,4 +167,4 @@ const objectF = function () {
     };
 }();
 
-module.exports = objectF;
+export default objectF;

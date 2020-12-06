@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1570076940403" clover="3.2.0">
-  <project timestamp="1570076940403" name="All files">
-    <metrics statements="159" coveredstatements="159" conditionals="110" coveredconditionals="110" methods="30" coveredmethods="30" elements="299" coveredelements="299" complexity="0" loc="159" ncloc="159" packages="1" files="2" classes="2"/>
-    <file name="objectFactory.js" path="C:\~dev\Q2\src\objectFactory.js">
-      <metrics statements="78" coveredstatements="78" conditionals="86" coveredconditionals="86" methods="12" coveredmethods="12"/>
-      <line num="1" count="1" type="stmt"/>
+<coverage generated="1607229393562" clover="3.2.0">
+  <project timestamp="1607229393562" name="All files">
+    <metrics statements="157" coveredstatements="157" conditionals="110" coveredconditionals="110" methods="30" coveredmethods="30" elements="297" coveredelements="297" complexity="0" loc="157" ncloc="157" packages="1" files="2" classes="2"/>
+    <file name="objectFactory.js" path="/home/lu/repo/QuickQuote/src/objectFactory.js">
+      <metrics statements="76" coveredstatements="76" conditionals="86" coveredconditionals="86" methods="12" coveredmethods="12"/>
       <line num="2" count="1" type="stmt"/>
       <line num="6" count="1" type="stmt"/>
       <line num="14" count="1" type="stmt"/>
@@ -81,9 +80,8 @@
       <line num="160" count="126" type="stmt"/>
       <line num="163" count="1" type="stmt"/>
       <line num="165" count="85" type="cond" truecount="2" falsecount="0"/>
-      <line num="170" count="1" type="stmt"/>
     </file>
-    <file name="observable.js" path="C:\~dev\Q2\src\observable.js">
+    <file name="observable.js" path="/home/lu/repo/QuickQuote/src/observable.js">
       <metrics statements="81" coveredstatements="81" conditionals="24" coveredconditionals="24" methods="18" coveredmethods="18"/>
       <line num="3" count="1" type="stmt"/>
       <line num="4" count="1" type="stmt"/>

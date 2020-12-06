@@ -1,5 +1,5 @@
 TN:
-SF:C:\~dev\Q2\src\objectFactory.js
+SF:src/objectFactory.js
 FN:2,(anonymous_0)
 FN:19,(anonymous_1)
 FN:30,(anonymous_2)
@@ -26,7 +26,6 @@ FNDA:4,(anonymous_8)
 FNDA:4,(anonymous_9)
 FNDA:126,(anonymous_10)
 FNDA:85,(anonymous_11)
-DA:1,1
 DA:2,1
 DA:6,1
 DA:14,1
@@ -103,9 +102,8 @@ DA:157,1
 DA:160,126
 DA:163,1
 DA:165,85
-DA:170,1
-LF:78
-LH:78
+LF:76
+LH:76
 BRDA:20,0,0,3
 BRDA:20,0,1,1
 BRDA:21,1,0,4
@@ -196,7 +194,7 @@ BRF:86
 BRH:86
 end_of_record
 TN:
-SF:C:\~dev\Q2\src\observable.js
+SF:src/observable.js
 FN:2,observable
 FN:8,(anonymous_1)
 FN:14,(anonymous_2)
